@@ -1,3 +1,4 @@
+
 package br.senac.tads.dsw.gerenciador_jogos.entidade;
 
 import jakarta.persistence.*;
@@ -22,9 +23,11 @@ public class JogoEntity {
 	@Column(name = "ano_lancamento", nullable = false)
 	private Integer anoLancamento;
 
-	@NotBlank(message = "A plataforma é obrigatória")
-	@Column(nullable = false, length = 100)
-	private String plataforma;
+	// Relacionamento entre jogo e plataforma
+	@NotNull(message = "A plataforma é obrigatória")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "plataforma_id", nullable = false)
+	private PlataformaEntity plataforma;
 
 	@NotNull(message = "A disponibilidade é obrigatória")
 	@Column(nullable = false)
@@ -60,11 +63,11 @@ public class JogoEntity {
 		this.anoLancamento = anoLancamento;
 	}
 
-	public String getPlataforma() {
+	public PlataformaEntity getPlataforma() {
 		return plataforma;
 	}
 
-	public void setPlataforma(String plataforma) {
+	public void setPlataforma(PlataformaEntity plataforma) {
 		this.plataforma = plataforma;
 	}
 
