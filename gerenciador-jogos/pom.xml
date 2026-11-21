@@ -12,13 +12,18 @@
 	<artifactId>gerenciador-jogos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gerenciador-jogos</name>
-	<description>Projeto Final DSW - Renan Erick Ferreira de Souza</description>
+	<description>Projeto Final DSW - Renan Erick Ferreira de Souza e João Victor de Jesus Silva</description>
 
 	<developers>
 		<developer>
 			<id>Renan7Erick</id>
 			<name>Renan Erick Ferreira De Souza</name>
 			<email>renanerickferreirasouza@gmail.com</email>
+		</developer>
+		<developer>
+			<id>itscuds</id>
+			<name>João Victor de Jesus Silva</name>
+			<email>joaovictordejesussilva@outlook.com</email>
 		</developer>
 	</developers>
 	<!-- Versão do TADS Spring Initializr: 1.1.8 -->
