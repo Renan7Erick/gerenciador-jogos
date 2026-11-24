@@ -74,7 +74,9 @@ public class JogoService {
 	public JogoEntity cadastrar(JogoEntity jogo) {
 
 		jogo.setTitulo(jogo.getTitulo().trim());
+
 		validarPlataforma(jogo);
+		validarDuplicidade(jogo, null);
 
 		return jogoRepository.save(jogo);
 	}
@@ -85,7 +87,9 @@ public class JogoService {
 		JogoEntity jogo = buscarPorId(id);
 
 		dados.setTitulo(dados.getTitulo().trim());
+
 		validarPlataforma(dados);
+		validarDuplicidade(dados, id);
 
 		jogo.setTitulo(dados.getTitulo());
 		jogo.setAnoLancamento(dados.getAnoLancamento());
@@ -100,5 +104,34 @@ public class JogoService {
 	public void excluir(Integer id) {
 		JogoEntity jogo = buscarPorId(id);
 		jogoRepository.delete(jogo);
+	}
+
+	private void validarDuplicidade(JogoEntity jogo, Integer idAtual) {
+
+		Integer plataformaId = jogo.getPlataforma().getId();
+
+		boolean duplicado;
+
+		if (idAtual == null) {
+			duplicado = jogoRepository
+				.existsByTituloIgnoreCaseAndPlataforma_Id(
+					jogo.getTitulo(),
+					plataformaId
+				);
+		} else {
+			duplicado = jogoRepository
+				.existsByTituloIgnoreCaseAndPlataforma_IdAndIdNot(
+					jogo.getTitulo(),
+					plataformaId,
+					idAtual
+				);
+		}
+
+		if (duplicado) {
+			throw new ResponseStatusException(
+				HttpStatus.CONFLICT,
+				"Este jogo já está cadastrado nesta plataforma"
+			);
+		}
 	}
 }

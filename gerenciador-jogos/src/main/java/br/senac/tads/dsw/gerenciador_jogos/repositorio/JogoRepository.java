@@ -17,4 +17,17 @@ public interface JogoRepository extends JpaRepository<JogoEntity, Integer> {
 	List<JogoEntity> findByDisponivel(Boolean disponivel);
 
 	long countByPlataforma_Id(Integer plataformaId);
+
+	// Verifica duplicidade durante o cadastro
+	boolean existsByTituloIgnoreCaseAndPlataforma_Id(
+		String titulo,
+		Integer plataformaId
+	);
+
+	// Verifica duplicidade durante a edição, ignorando o próprio registro
+	boolean existsByTituloIgnoreCaseAndPlataforma_IdAndIdNot(
+		String titulo,
+		Integer plataformaId,
+		Integer id
+	);
 }
